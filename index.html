@@ -1,1 +1,31 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>For Kakao</title>
+</head>
+<body>
+    <div id="kakao-link-btn">클릭</div>
+    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script src="//script.gmarket.co.kr/rpp/snsshare.js"></script>
+    <script>
+        SNSShare.context = {
+            "snsTitle": "이렇게 공유해보아요",
+            "snsDesc": "공유가 직접 되는지 신기할 듯 하다",
+            "isMobile": true,
+            "osType": "ios",
+            "landingUrl": "https://github.com/asunhs/for-kakao",
+            "imageUrl": "https://avatars2.githubusercontent.com/u/8240852?s=70&v=4",
+            "btnTxt": "따라가기",
+            "kakaotalk": {
+                "snsType": "KAKAOTALK",
+                "appId": "c21abff411c1c7194b99e1fcac9de6cb",
+                "btnTxt": "따라가기"
+            }
+        };
+        if (SNSShare.context.isMobile) {
+            SNSShare.KakaoAPI.init();
+        }
+    </script>
+</body>
+</html>
