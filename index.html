@@ -40,11 +40,9 @@
                                 }
                             }
                         ],
+                        installTalk: true,
                         fail: function() {
                             alert("카카오를 통한 공유가 지원되지 않는 환경입니다.");
-                        },
-                        success: function(messageObj) {
-                            alert(JSON.stringify(messageObj));
                         }
                     });
                 }
