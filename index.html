@@ -8,7 +8,122 @@
 <body>
     <div id="kakao-link-btn">클릭</div>
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-    <script src="//script.gmarket.co.kr/rpp/snsshare.js"></script>
+    <script>
+        (function(SNSShare,Kakao,$,undefined){
+
+            (function(KakaoAPI,undefined){
+                KakaoAPI.init = function(){
+                    Kakao.init(SNSShare.context.Kakaotalk.appId);
+                    KakaoAPI.setBtn();
+                };
+                KakaoAPI.setBtn = function(){
+                    Kakao.Link.createDefaultButton({
+                        container: '#kakao-link-btn',
+                        objectType: 'feed',
+                        content: {
+                            title: SNSShare.context.snsTitle,
+                            description: SNSShare.context.snsDesc,
+                            imageUrl: SNSShare.context.imageUrl,
+                            imageWidth: 300,
+                            imageHeight: 200,
+                            link: {
+                                mobileWebUrl: SNSShare.context.landingUrl,
+                                webUrl: SNSShare.context.landingUrl
+                            }
+                        },
+                        buttons: [
+                            {
+                                title: SNSShare.context.Kakaotalk.btnTxt,
+                                link: {
+                                    mobileWebUrl: SNSShare.context.landingUrl,
+                                    webUrl: SNSShare.context.landingUrl
+                                }
+                            }
+                        ],
+                        fail: function() {
+                            alert("카카오를 통한 공유가 지원되지 않는 환경입니다.")
+                        },
+                        success: function(messageObj) {
+                            alert(messageObj.template_msg)
+                        }
+                    });
+                }
+            })(SNSShare.KakaoAPI = SNSShare.KakaoAPI || {});
+
+        })(window.SNSShare = window.SNSShare || {}, Kakao , jQuery);
+
+        window.Clipboard = (function(window, document, navigator,$) {
+            var textArea,
+                copy,
+                $textArea,
+                $modal,
+                $snsUrlBox;
+
+            function isOS() {
+                return navigator.userAgent.match(/ipad|iphone/i);
+            }
+
+            function createTextArea(text) {
+                if(isOS()){
+                    textArea = document.createElement('textArea');
+                    textArea.value = text;
+                    document.body.prepend(textArea);
+                }else{
+                    $snsUrlBox = $('#urlTxtArea');
+                    $modal = $('body');
+                    //$(this).parents('.layer_share');
+                    $textArea = $("<textarea>")
+                        .css({
+                            'position': 'fixed',
+                            'opacity': 0,
+                            'z-index': -1,
+                            'filter': 'alpha(opacity=0)'
+                        })
+                        .val($snsUrlBox.text())
+                        .attr('id', 'url_text')
+                        .appendTo($modal);
+                }
+            }
+
+            function selectText() {
+                var range,
+                    selection;
+
+                if (isOS()) {
+                    range = document.createRange();
+                    range.selectNodeContents(textArea);
+                    selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    textArea.setSelectionRange(0, 999999);
+                }else{
+                    $textArea.select();
+                    //textArea.select();
+                }
+            }
+
+            function copyToClipboard() {
+                document.execCommand('copy');
+                if(isOS()){
+                    document.body.removeChild(textArea);
+                }else{
+                    $textArea.remove();
+                }
+            }
+
+            copy = function(text) {
+                createTextArea(text);
+                selectText();
+                copyToClipboard();
+                alert("복사가 완료되었습니다");
+            };
+
+            return {
+                copy: copy
+            };
+        })(window, document, navigator, jQuery);
+
+    </script>
     <script>
         SNSShare.context = {
             "snsTitle": "이렇게 공유해보아요",
