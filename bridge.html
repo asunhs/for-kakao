@@ -4,13 +4,25 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script>
-        window.open('//asunhs.github.io/for-kakao/index.html', 'smileclub');
+
+        var popup;
+
         setTimeout(() => {
             location.href = 'http://gmarket.co.kr';
-        }, 5000)
+        }, 5000);
+
+        function pop() {
+            popup = window.open('about:blank', 'smileclub');
+        }
+
+        function loaded() {
+            popup.location = '//asunhs.github.io/for-kakao/index.html';
+        }
+
+        pop();
     </script>
 </head>
-<body>
+<body onload="loaded()">
 
 </body>
 </html>
