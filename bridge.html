@@ -3,26 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="//script.gmarket.co.kr/pc/js/api/jquery-1.10.2.min.js"></script>
     <script>
 
         var popup;
 
         setTimeout(() => {
             location.href = 'http://gmarket.co.kr';
-        }, 5000);
+        });
 
         function pop() {
-            popup = window.open('about:blank', 'smileclub');
+            popup = window.open('//asunhs.github.io/for-kakao/index.html', 'smileclub');
         }
 
-        function loaded() {
-            popup.location = '//asunhs.github.io/for-kakao/index.html';
-        }
-
-        pop();
+        $(document).ready(pop);
     </script>
 </head>
-<body onload="loaded()">
+<body>
 
 </body>
 </html>
